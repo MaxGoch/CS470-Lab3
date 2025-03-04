@@ -10,15 +10,20 @@ typedef struct {
     int turnaround_time;
 } Process;
 
-
+#define MAX_EXECUTIONS 1000 // Define a max limit for execution order storage
 
 // Function to calculate waiting times and execution order for all processes
 void calculateWaitingTimeAndExecutionOrder(Process proc[], int n, int quantum) {
-    // Array to store remaining burst times
-    // Assuming a maximum of 1000 executions for simplicity
+    // Array to store remaining burst times   
     for (int i = 0; i < n; i++) {
         proc[i].remaining_time = proc[i].burst_time; // Initialize remaining times
     }
+    
+    // Assuming a maximum of 1000 executions for simplicity    
+    int executionOrder[MAX_EXECUTIONS]; // Array to store execution order
+
+    int execIndex = 0; // Index for storing execution order
+
     
 
     // Current time
@@ -32,7 +37,7 @@ void calculateWaitingTimeAndExecutionOrder(Process proc[], int n, int quantum) {
             if (proc[i].remaining_time > 0) {
                 done = 0; // There is at least one process left
 
-                printf("P%d ", proc[i].process_id); // Print execution order
+		executionOrder[execIndex++] = proc[i].process_id; // Store execution order
 
                 if (proc[i].remaining_time > quantum) {
                     time += quantum;
@@ -53,9 +58,10 @@ void calculateWaitingTimeAndExecutionOrder(Process proc[], int n, int quantum) {
 
     // Print the execution order
     printf("Execution Order: ");
-    for(int i = 0; i < sizeof(order)/sizeof(order[0]); i++){
-    	
+    for (int i = 0; i < execIndex; i++) {
+        printf("P%d ", executionOrder[i]);
     }
+    printf("\n");
     
 }
 
