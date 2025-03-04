@@ -33,7 +33,7 @@ int findNextProcess(Process proc[], int current_time) {
 void srtf(Process proc[]) {
     int current_time = 0;
     int completed = 0;
-    int prev = -1;
+    //int prev = -1;
 
     // Initialize waiting and turnaround times
     for (int i = 0; i < n; i++) {
